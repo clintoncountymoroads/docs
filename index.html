@@ -193,16 +193,27 @@ function blueIcon() {
   });
 }
 
-// ── API calls ──
+// ── API calls (JSONP to avoid CORS) ──
 function api(params) {
-  const url = SCRIPT_URL + '?' + new URLSearchParams(params).toString();
-  return fetch(url).then(r => r.json());
-}
-
-function apiPost(params) {
-  const form = new FormData();
-  Object.entries(params).forEach(([k, v]) => form.append(k, v));
-  return fetch(SCRIPT_URL, { method: 'POST', body: form }).then(r => r.json());
+  return new Promise((resolve, reject) => {
+    const cbName = 'cb_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      reject(new Error('timeout'));
+    }, 15000);
+    window[cbName] = (data) => {
+      clearTimeout(timer);
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      resolve(data);
+    };
+    params.callback = cbName;
+    script.src = SCRIPT_URL + '?' + new URLSearchParams(params).toString();
+    script.onerror = () => { clearTimeout(timer); reject(new Error('script error')); };
+    document.body.appendChild(script);
+  });
 }
 
 function resizeImage(dataUrl, maxWidth, quality) {
@@ -374,7 +385,7 @@ function submitReport(lat, lng) {
   const hasPhoto = preview.style.display === 'block' && preview.src;
 
   const doSubmit = (photo) => {
-    apiPost({ action: 'addReport', type, location, desc, photo: photo || '', lat, lng })
+    api({ action: 'addReport', type, location, desc, photo: photo || '', lat, lng })
       .then(data => {
         if (data.success) {
           cancelNew();
