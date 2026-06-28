@@ -106,7 +106,7 @@
 <!-- ── PASTE YOUR SCRIPT URL HERE ── -->
 <script>
   // After deploying your Apps Script, paste the Web App URL below:
-  var SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzafxJNH71jkISCoumJRMT40CKds46K8GFMyYJI7nUPfQWoh_BAnr4_Vwbnafc-RQWA/exec";
 </script>
 
 <header>
@@ -135,7 +135,7 @@
     <div id="config-banner">
       <strong>⚠️ Setup required</strong>
       Paste your Google Apps Script URL below to connect the map to your spreadsheet.
-      <input type="text" id="script-url-input" placeholder="https://script.google.com/macros/s/.../exec" />
+      <input type="text" id="script-url-input" placeholder="https://script.google.com/macros/s/AKfycbzafxJNH71jkISCoumJRMT40CKds46K8GFMyYJI7nUPfQWoh_BAnr4_Vwbnafc-RQWA/exec" />
       <button onclick="saveScriptUrl()">Save & connect</button>
     </div>
     <div class="sidebar-top">
@@ -239,7 +239,7 @@ function resizeImage(dataUrl, maxWidth, quality) {
 }
 
 function loadReports() {
-  if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+  if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzafxJNH71jkISCoumJRMT40CKds46K8GFMyYJI7nUPfQWoh_BAnr4_Vwbnafc-RQWA/exec') {
     document.getElementById('config-banner').style.display = 'block';
     document.getElementById('reportList').innerHTML = '<div class="empty">Connect your spreadsheet above to get started.</div>';
     return;
