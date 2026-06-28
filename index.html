@@ -199,6 +199,27 @@ function api(params) {
   return fetch(url).then(r => r.json());
 }
 
+function apiPost(params) {
+  const form = new FormData();
+  Object.entries(params).forEach(([k, v]) => form.append(k, v));
+  return fetch(SCRIPT_URL, { method: 'POST', body: form }).then(r => r.json());
+}
+
+function resizeImage(dataUrl, maxWidth, quality) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxWidth / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.src = dataUrl;
+  });
+}
+
 function loadReports() {
   if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
     document.getElementById('config-banner').style.display = 'block';
@@ -344,24 +365,34 @@ function submitReport(lat, lng) {
   const location = document.getElementById('f_location').value.trim();
   const desc = document.getElementById('f_desc').value.trim();
   const preview = document.getElementById('f_preview');
-  const photo = preview.style.display === 'block' ? preview.src : '';
   if (!location) { document.getElementById('f_location').focus(); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.innerHTML = '<span class="spinner"></span>Saving…';
   btn.disabled = true;
 
-  api({ action: 'addReport', type, location, desc, photo, lat, lng })
-    .then(data => {
-      if (data.success) {
-        cancelNew();
-        showToast('Report submitted!');
-        loadReports();
-      } else {
-        showToast('Error: ' + (data.error || 'Unknown error'));
-        btn.innerHTML = 'Submit report'; btn.disabled = false;
-      }
-    }).catch(() => { showToast('Network error — try again'); btn.innerHTML = 'Submit report'; btn.disabled = false; });
+  const hasPhoto = preview.style.display === 'block' && preview.src;
+
+  const doSubmit = (photo) => {
+    apiPost({ action: 'addReport', type, location, desc, photo: photo || '', lat, lng })
+      .then(data => {
+        if (data.success) {
+          cancelNew();
+          showToast('Report submitted!');
+          loadReports();
+        } else {
+          showToast('Error: ' + (data.error || 'Unknown error'));
+          btn.innerHTML = 'Submit report'; btn.disabled = false;
+        }
+      }).catch(() => { showToast('Network error — try again'); btn.innerHTML = 'Submit report'; btn.disabled = false; });
+  };
+
+  if (hasPhoto) {
+    btn.innerHTML = '<span class="spinner"></span>Uploading photo…';
+    resizeImage(preview.src, 1200, 0.7).then(resized => doSubmit(resized));
+  } else {
+    doSubmit('');
+  }
 }
 
 function toggleStatus(id, newStatus) {
