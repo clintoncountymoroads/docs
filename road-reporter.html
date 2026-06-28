@@ -106,7 +106,7 @@
 <!-- ── PASTE YOUR SCRIPT URL HERE ── -->
 <script>
   // After deploying your Apps Script, paste the Web App URL below:
-  var SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRPcNyg0BuSh-JEz1JCEoWM9X779O-CpdC1Sof0HHwbuU6pu5VUlPIZ2w8iJyKbSV6/exec";
 </script>
 
 <header>
@@ -232,7 +232,7 @@ function resizeImage(dataUrl, maxWidth, quality) {
 }
 
 function loadReports() {
-  if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+  if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwRPcNyg0BuSh-JEz1JCEoWM9X779O-CpdC1Sof0HHwbuU6pu5VUlPIZ2w8iJyKbSV6/exec') {
     document.getElementById('config-banner').style.display = 'block';
     document.getElementById('reportList').innerHTML = '<div class="empty">Connect your spreadsheet above to get started.</div>';
     return;
