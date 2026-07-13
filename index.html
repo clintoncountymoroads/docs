@@ -602,36 +602,10 @@
   }
   .detail-list a{font-weight:600; text-decoration:none; overflow-wrap:break-word; word-break:break-word;}
   .detail-list a:hover{text-decoration:underline;}
-  .calendar-card{
-    background:var(--white);
-    border:1px solid var(--cream-deep);
-    border-left:5px solid var(--brass);
-    border-radius:var(--radius);
-    width:100%;
-    overflow:hidden;
-  }
-  .calendar-card-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    flex-wrap:wrap;
-    padding:16px 20px;
-    background:var(--navy);
-    color:var(--white);
-  }
-  .calendar-card-header-text{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--serif);
-    font-weight:600;
-    font-size:1.08rem;
-  }
   .calendar-view-switch{
     display:inline-flex;
-    background:rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.25);
+    background:var(--cream);
+    border:1px solid var(--cream-deep);
     border-radius:999px;
     padding:3px;
     gap:2px;
@@ -640,7 +614,7 @@
     font-family:var(--sans);
     font-weight:600;
     font-size:0.84rem;
-    color:var(--cream);
+    color:var(--navy-dark);
     background:transparent;
     border:none;
     border-radius:999px;
@@ -648,13 +622,16 @@
     min-height:36px;
     cursor:pointer;
   }
-  .view-btn:hover{background:rgba(255,255,255,0.12);}
+  .view-btn:hover{background:var(--cream-deep);}
   .view-btn[aria-pressed="true"]{
     background:var(--brass-deep);
     color:var(--white);
   }
   .calendar-frame{
-    padding:8px;
+    margin-top:14px;
+    border:1px solid var(--cream-deep);
+    border-radius:var(--radius);
+    overflow:hidden;
   }
   .calendar-frame iframe{
     display:block;
@@ -802,6 +779,18 @@
     grid-template-columns:250px 1fr;
     max-height:85vh;
   }
+  .modal-grid.no-sidebar{
+    grid-template-columns:1fr;
+  }
+  .modal-grid.no-sidebar .modal-profile{
+    position:absolute !important;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
   .modal-profile{
     background:var(--cream);
     border-right:1px solid var(--cream-deep);
@@ -829,6 +818,40 @@
     gap:6px;
   }
   .modal-bullets li{color:var(--ink); font-size:0.94rem; max-width:60ch;}
+
+  .road-reporter-link{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:var(--cream);
+    border:1px solid var(--cream-deep);
+    border-radius:var(--radius);
+    padding:14px 18px;
+    text-decoration:none;
+    max-width:420px;
+    margin:14px 0 20px;
+  }
+  .road-reporter-link:hover{background:var(--cream-deep);}
+  .road-reporter-link img{
+    flex:none;
+    width:56px;
+    height:56px;
+    border-radius:12px;
+    box-shadow:0 0 0 1px var(--cream-deep);
+  }
+  .road-reporter-link span{font-weight:700; color:var(--navy-dark); font-size:0.95rem;}
+
+  .notice-flag{
+    background:#fdf1e7;
+    border:1px solid #eecda3;
+    border-left:4px solid var(--rust);
+    border-radius:var(--radius);
+    padding:10px 14px;
+    font-weight:600;
+    font-size:0.86rem;
+    color:var(--rust);
+    max-width:60ch;
+  }
   .link-groups{
     margin-top:26px;
     padding-top:20px;
@@ -1448,9 +1471,29 @@
       ]
     },
     {
-      id:"county-clerk", role:"County Clerk's Office", name:"Public Documents", group:"officials", noData:true,
+      id:"county-clerk", role:"County Clerk's Office", name:"Public Documents", group:"officials",
       details:[],
-      note:"Office contact details aren't listed yet. Public document requests are available through the official county website."
+      note:"Office contact details aren't listed yet. Public document requests are available through the official county website.",
+      aboutHtml:
+        '<h4 class="modal-subheading">Document Categories</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li><strong>Property &amp; Land Records:</strong> Deeds, mortgages, liens, plat maps, and subdivision documents.</li>' +
+        '<li><strong>Court Dockets &amp; Orders:</strong> Civil, criminal, and probate case files, judgments, and hearing schedules.</li>' +
+        '<li><strong>Vital Statistics:</strong> Marriage licenses, and publicly releasable birth and death indexes.</li>' +
+        '<li><strong>Financial &amp; Budgetary Docs:</strong> County budgets, expense reports, vendor contracts, employee salaries, and audits.</li>' +
+        '<li><strong>Public Meeting Information:</strong> Agendas, minutes, and ordinances for the County Commission or County Council meetings.</li>' +
+        '<li><strong>Elections &amp; Campaign Finance:</strong> Campaign contribution disclosures, election results, and voter registration records.</li>' +
+        '</ul>',
+      linkGroups:[
+        {heading:"Browse Public Documents", links:[
+          {label:"Property & Land Records", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"},
+          {label:"Court Dockets & Orders", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"},
+          {label:"Vital Statistics", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"},
+          {label:"Financial & Budgetary Docs", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"},
+          {label:"Public Meeting Information", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"},
+          {label:"Elections & Campaign Finance", href:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/"}
+        ]}
+      ]
     },
     {
       id:"prosecuting-attorney", role:"Prosecuting Attorney", name:"Brandi McClain", group:"officials",
@@ -1461,6 +1504,16 @@
         ["Hours","Monday – Friday, 8:30 a.m. – 4:30 p.m. (Closed for lunch 12:00 – 1:00 p.m.)"],
         ["Mailing Address","PO Box 285, Plattsburg, MO 64477"],
         ["Email","brandi.mcclain@prosecutors.mo.gov","mailto:brandi.mcclain@prosecutors.mo.gov"]
+      ],
+      aboutHtml:
+        '<h4 class="modal-subheading">About the Office</h4>' +
+        '<p>Prosecuting Attorney Brandi McClain is responsible for enforcing state laws and prosecuting crimes committed within Clinton County, Missouri. Our office files and prosecutes over 600 misdemeanor and felony cases a year.</p>' +
+        '<p>We also collect bad checks on behalf of county businesses, assist crime victims in recovering restitution, collect delinquent taxes on behalf of the Missouri Department of Revenue, and provide legal advice, as needed, to County officeholders.</p>',
+      linkGroups:[
+        {heading:"Resources", links:[
+          {label:"Bad Check Cases", href:"https://clintoncomo.org/government/courthouse/prosecuting-attorney/bad-check-cases/"},
+          {label:"Information for Crime Victims", href:"https://clintoncomo.org/government/courthouse/prosecuting-attorney/information-for-crime-victims/"}
+        ]}
       ]
     },
     {
@@ -1470,10 +1523,37 @@
         ["Phone","816-592-5175","tel:8165925175"],
         ["Hours","Monday – Friday, 9:00 a.m. – 5:00 p.m."],
         ["Mailing Address","104 E. Maple St., Plattsburg, MO 64477"]
-      ]
+      ],
+      aboutHtml:
+        '<h4 class="modal-subheading">About the Office</h4>' +
+        '<p>A Missouri Public Administrator serves as a court-appointed guardian, conservator, or personal representative for individuals who cannot care for themselves or their property, medical care, finances, and safety, as well as acting as an advocate for their clients and ensuring their well-being and dignity. They are also responsible for protecting assets, managing estates, and complying with Missouri Revised Statutes.</p>' +
+        '<h4 class="modal-subheading">As Guardian/Conservator for Incapacitated Individuals</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li><strong>Advocate for Clients\u2019 Needs:</strong> Advocate for housing, employment, education, benefits, medical care, medical consents, and overall quality of life for their ward.</li>' +
+        '<li><strong>Manage Care and Placement:</strong> Make decisions regarding placement in appropriate facilities, medical consents, and general health and safety.</li>' +
+        '<li><strong>Financial Management:</strong> Manages the individual\u2019s assets and finances, protecting them from waste or loss.</li>' +
+        '<li><strong>Monitor Progress:</strong> Continuously assess the need for continued guardianship/conservatorship and work toward restoration of the individual\u2019s rights when possible.</li>' +
+        '</ul>' +
+        '<h4 class="modal-subheading">As Personal Representative for Deceased Estates</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li><strong>Manage Estates:</strong> Take charge of a deceased person\u2019s assets when no family member or will designates someone to manage the estate.</li>' +
+        '<li><strong>Pay Debts and Claims:</strong> Pay valid claims against the estate and distribute any remaining assets to the rightful heirs or surviving relatives.</li>' +
+        '<li><strong>Protect Assets:</strong> Protect the estate\u2019s assets from waste, theft, or loss during the probate process.</li>' +
+        '</ul>' +
+        '<h4 class="modal-subheading">General Responsibilities</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li><strong>Court-Appointed Authority:</strong> Serve as a court-appointed official by the Missouri Circuit Court\u2019s Probate Division.</li>' +
+        '<li><strong>Annual Reporting:</strong> Provide annual reports for the court detailing the care and administration of each estate or individual under their care.</li>' +
+        '<li><strong>Legal Compliance:</strong> Adhere to the statutes and requirements set forth in the Missouri Revised Statutes.</li>' +
+        '<li><strong>Community Resource Management:</strong> Develop and maintain a comprehensive knowledge of community services, providers, and facilities to best serve their clients.</li>' +
+        '</ul>'
     },
     {
       id:"recorder-of-deeds", role:"Recorder of Deeds", name:"Misty Dean", group:"officials",
+      staff:[
+        {title:"Chief Deputy Recorder", name:"Dana Baker"},
+        {title:"Deputy Recorder", name:"Cathy Rolfe"}
+      ],
       details:[
         ["Term","2023 – 2026"],
         ["Phone","816-539-3719","tel:8165393719"],
@@ -1481,22 +1561,57 @@
         ["Hours","8:00 a.m. – 4:30 p.m. (Closed for lunch 12:00 – 12:30 p.m.)"],
         ["Mailing Address","PO Box 275, Plattsburg, MO 64477"],
         ["Email","recorder@clintoncomo.gov","mailto:recorder@clintoncomo.gov"]
+      ],
+      aboutHtml:
+        '<h4 class="modal-subheading">Services</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li>Record &amp; maintain real estate documents</li>' +
+        '<li>Issue &amp; maintain marriage licenses</li>' +
+        '<li>File &amp; maintain State &amp; Federal tax liens</li>' +
+        '<li>File &amp; maintain military discharge documents</li>' +
+        '<li>Search terminals available for public use</li>' +
+        '</ul>' +
+        '<h4 class="modal-subheading">eRecording &amp; Online Search</h4>' +
+        '<p>Contact iCounty Technologies at (816) 295-1540 for eRecording, to search and/or purchase documents online, or for fraud notification.</p>' +
+        '<h4 class="modal-subheading">Please Note</h4>' +
+        '<ul class="modal-bullets">' +
+        '<li>We accept cash, credit or debit cards, and business checks for payment. As of June 1, 2024, we no longer accept personal checks. (This does not apply to marriage licenses; they remain cash only.)</li>' +
+        '<li>Our office does not create or make changes to documents \u2014 we solely record them.</li>' +
+        '<li>Please refer to a title company or attorney for assistance with legal questions and help using the correct form(s) and title searches.</li>' +
+        '</ul>',
+      linkGroups:[
+        {heading:"Online Services", links:[
+          {label:"iCounty Technologies — eRecording & Document Search", href:"http://clintonmo.icounty.com/"}
+        ]}
       ]
     },
     {
       id:"sheriff", role:"Sheriff", name:"Clinton County Sheriff's Office", group:"officials", noData:true,
       details:[],
-      note:"Office contact details aren't listed yet. Please check the official county website for current information."
+      note:"Office contact details aren't listed yet. Visit the Sheriff's Office website for current information.",
+      linkGroups:[
+        {heading:"Sheriff's Office", links:[
+          {label:"Visit Clinton County Sheriff's Office", href:"https://www.clintoncosheriff.org/home"}
+        ]}
+      ]
     },
     {
       id:"treasurer", role:"Treasurer", name:"Rita Terwilleger", group:"officials",
+      photo:"data:image/webp;base64,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",
+      staff:[
+        {title:"Deputy Treasurer", name:"Becky Black"}
+      ],
       details:[
         ["Term","Elected 2019"],
         ["Phone","816-539-3724","tel:8165393724"],
         ["Hours","8:30 a.m. – 4:30 p.m. (Lunch 12:00 – 1:00 p.m.)"],
         ["Mailing Address","207 N. Main St., Rm. 113, Plattsburg, MO 64477"],
         ["Email","treasoffice@clintoncomo.gov","mailto:treasoffice@clintoncomo.gov"]
-      ]
+      ],
+      aboutHtml:
+        '<h4 class="modal-subheading">About the Office</h4>' +
+        '<p>The County Treasurer is responsible for all revenues paid to the county and keeps records of receipts/expenditures. Our office is also the custodian of school funds and disburses tax revenue to local entities, such as fire and ambulance districts.</p>' +
+        '<p>The County Treasurer manages the bank accounts, makes bank deposits, and reconciles each bank account for the county, including tracking funds and keeping daily/monthly records.</p>'
     },
     {
       id:"emergency-management", role:"Department", name:"Emergency Management", group:"departments", noData:true,
@@ -1520,6 +1635,23 @@
         ["Hours","Monday – Friday, 7:00 a.m. – 3:30 p.m."],
         ["Mailing Address","257 E. Hwy. 116, Plattsburg, MO 64477"],
         ["Email","ccroadworks@clintoncomo.gov","mailto:ccroadworks@clintoncomo.gov"]
+      ],
+      aboutHtml:
+        '<h4 class="modal-subheading">About the Department</h4>' +
+        '<p>The Road &amp; Bridge Department is responsible for the ongoing repair, paving, and upkeep of hundreds of miles of rural routes and structural bridges across Clinton County. The team actively coordinates with the County Commission to execute essential infrastructure projects and improve transportation safety.</p>' +
+        '<h4 class="modal-subheading">Report a Road or Bridge Issue</h4>' +
+        '<p>Report road and bridge issues on the Clinton County Road Reporter.</p>' +
+        '<a class="road-reporter-link" href="https://clintoncountymoroads.netlify.app/" target="_blank" rel="noopener">' +
+        '<img src="data:image/webp;base64,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" alt="Clinton County MO Road Reporter" width="120" height="120">' +
+        '<span>Open the Clinton County Road Reporter<span class="visually-hidden"> (opens in a new tab)</span></span>' +
+        '</a>' +
+        '<h4 class="modal-subheading">Dust Control</h4>' +
+        '<p class="notice-flag">As of May 9, 2024, dust control applications are suspended until the policy is updated.</p>' +
+        '<p>County residents can apply their own dust control as long as they have the approval of residents on the road, apply with the county, and receive approval from the County Commission. Below is the application that contains the required documents and requirements.</p>',
+      linkGroups:[
+        {heading:"Forms", links:[
+          {label:"Dust Control Application", href:"https://clintoncomo.org/wp-content/uploads/2024/04/Clinton-County-Dust-Control-Application.docx"}
+        ]}
       ]
     },
     {
@@ -1752,13 +1884,15 @@
 
   // ---------- Modal open/close ----------
   var modalEl = document.getElementById("detail-modal");
+  var modalGridEl = document.querySelector(".modal-grid");
   var modalProfileEl = document.getElementById("modal-profile");
   var modalBodyEl = document.getElementById("modal-body");
   var lastTrigger = null;
 
-  function openModal(profileHtml, bodyHtml){
+  function openModal(profileHtml, bodyHtml, noSidebar){
     modalProfileEl.innerHTML = profileHtml;
     modalBodyEl.innerHTML = bodyHtml;
+    modalGridEl.classList.toggle("no-sidebar", !!noSidebar);
     modalEl.showModal();
   }
 
@@ -1885,17 +2019,15 @@
       icon: ICONS.rss
     });
     var bodyHtml = '<h3>Clinton County News</h3>';
-    bodyHtml += '<ul class="news-list">';
+    bodyHtml += '<p>Recent elections results, county announcements, and Planning &amp; Zoning updates.</p>';
+    bodyHtml += '<div class="notice-list">';
     NEWS_ITEMS.forEach(function(n){
-      bodyHtml += '<li class="news-item ' + n.rowClass + '">';
-      bodyHtml += '<span class="news-date"><span>' + n.date + '</span>' + n.day + '</span>';
-      bodyHtml += '<div class="news-body">';
-      bodyHtml += '<a class="news-title" href="' + n.href + '" target="_blank" rel="noopener">' + n.title + '</a>';
-      bodyHtml += '<p>' + n.blurb + '</p>';
-      bodyHtml += '<a class="btn-readmore" href="' + n.href + '" target="_blank" rel="noopener">Read More<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>';
-      bodyHtml += '</div></li>';
+      bodyHtml += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
+      bodyHtml += '<span class="notice-date">' + n.date + ' ' + n.day + '</span>';
+      bodyHtml += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
+      bodyHtml += '</a>';
     });
-    bodyHtml += '</ul>';
+    bodyHtml += '</div>';
     openModal(profileHtml, bodyHtml);
   }
 
@@ -1906,17 +2038,15 @@
       icon: ICONS.calendarIcon
     });
     var bodyHtml = '<h3>Calendar of Events</h3>';
-    bodyHtml += '<div class="calendar-card">';
-    bodyHtml += '<div class="calendar-card-header"><div class="calendar-card-header-text">' + ICONS.calendarIcon.replace('<svg ', '<svg width="20" height="20" ') + '<span>Upcoming Events</span></div>';
+    bodyHtml += '<p>County meetings and community events, pulled from the live calendar published on clintoncomo.org.</p>';
     bodyHtml += '<div class="calendar-view-switch" role="group" aria-label="Calendar view">';
     bodyHtml += '<button type="button" class="view-btn" data-mode="AGENDA" aria-pressed="true">List</button>';
     bodyHtml += '<button type="button" class="view-btn" data-mode="WEEK" aria-pressed="false">Week</button>';
     bodyHtml += '<button type="button" class="view-btn" data-mode="MONTH" aria-pressed="false">Month</button>';
-    bodyHtml += '</div></div>';
-    bodyHtml += '<div class="calendar-frame"><iframe id="county-calendar-iframe" src="https://calendar.google.com/calendar/embed?height=560&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=America%2FChicago&amp;mode=AGENDA&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;src=vvl4s0chvssa8idh8301le34bc%40group.calendar.google.com&amp;color=%235229A3&amp;src=cndkvls57cpe70itqistaoq11k%40group.calendar.google.com&amp;color=%23B1365F" title="Clinton County, Missouri — Calendar of Events" width="100%" height="500" loading="lazy" frameborder="0" scrolling="no"></iframe></div>';
     bodyHtml += '</div>';
+    bodyHtml += '<div class="calendar-frame"><iframe id="county-calendar-iframe" src="https://calendar.google.com/calendar/embed?height=560&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=America%2FChicago&amp;mode=AGENDA&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;src=vvl4s0chvssa8idh8301le34bc%40group.calendar.google.com&amp;color=%235229A3&amp;src=cndkvls57cpe70itqistaoq11k%40group.calendar.google.com&amp;color=%23B1365F" title="Clinton County, Missouri — Calendar of Events" width="100%" height="500" loading="lazy" frameborder="0" scrolling="no"></iframe></div>';
     bodyHtml += '<p style="margin-top:16px;"><a class="btn btn-primary" href="https://clintoncomo.org/resources/calendar-of-events/" target="_blank" rel="noopener">Open Full Calendar on clintoncomo.org<span class="visually-hidden"> (opens in a new tab)</span></a></p>';
-    openModal(profileHtml, bodyHtml);
+    openModal(profileHtml, bodyHtml, true);
   }
 
   function openPublicNoticesModal(){
