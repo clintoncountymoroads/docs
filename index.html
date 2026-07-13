@@ -203,7 +203,7 @@
   }
 
   @media (max-width:820px){
-    .nav-inner{justify-content:flex-end; padding:8px 16px;}
+    .nav-inner{justify-content:flex-start; padding:8px 16px;}
     .nav-toggle{display:inline-flex;}
     .nav-list{
       flex-direction:column;
@@ -248,11 +248,33 @@
     gap:40px;
     align-items:start;
   }
+  .hero-about{padding-top:6px;}
+  .hero-about .hero-eyebrow{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    font-size:0.78rem;
+    color:var(--brass-light);
+    margin-bottom:14px;
+    display:block;
+  }
+  .hero-about h2{
+    color:var(--white);
+    font-size:2.1rem;
+    margin-bottom:16px;
+  }
+  .hero-about .lede{
+    font-size:1.05rem;
+    line-height:1.65;
+    color:#dbe2ee;
+    max-width:62ch;
+  }
   .news-card{
     background:var(--cream);
+    border:1px solid var(--cream-deep);
+    border-left:5px solid var(--brass);
     border-radius:6px;
     overflow:hidden;
-    box-shadow:0 18px 40px rgba(8,14,28,0.35);
   }
   .news-card-header{
     display:flex;
@@ -985,7 +1007,6 @@
 <div class="utility-bar">
   <div class="wrap">
     <span>Clinton County Courthouse · 207 N. Main Street, Plattsburg, MO 64477</span>
-    <a href="https://clintoncomo.org/" target="_blank" rel="noopener">Visit clintoncomo.org<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
 </div>
 
@@ -1014,41 +1035,10 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="news-card">
-      <div class="news-card-header">
-        <h2>Clinton County News</h2>
-        <svg class="rss-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="6" cy="18" r="2.1" fill="currentColor"/>
-          <path d="M4 11.5A8.5 8.5 0 0 1 12.5 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M4 5A15 15 0 0 1 19 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <ul class="news-list">
-        <li class="news-item news-item-1">
-          <span class="news-date"><span>APR</span>07</span>
-          <div class="news-body">
-            <a class="news-title" href="https://clintoncomo.org/elections/" target="_blank" rel="noopener">2026 General Municipal Election: Official Results Posted</a>
-            <p>Official and unofficial results from the April 7, 2026 General Municipal Election are now posted for review.</p>
-            <a class="btn-readmore" href="https://clintoncomo.org/elections/" target="_blank" rel="noopener">Read More<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
-          </div>
-        </li>
-        <li class="news-item news-item-2">
-          <span class="news-date"><span>DEC</span>04</span>
-          <div class="news-body">
-            <a class="news-title" href="https://clintoncomo.org/wp-content/uploads/2025/11/PUBLIC-HEARING-DECEMBER-4-2025-PUBLIC-NOTICES.pdf" target="_blank" rel="noopener">Planning &amp; Zoning: December Public Hearing Notices</a>
-            <p>Subdivision and rezoning applications near Gower, Plattsburg, and Holt go before the Commission this month.</p>
-            <a class="btn-readmore" href="https://clintoncomo.org/wp-content/uploads/2025/11/PUBLIC-HEARING-DECEMBER-4-2025-PUBLIC-NOTICES.pdf" target="_blank" rel="noopener">Read More<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visually-hidden"> (opens .pdf in a new tab)</span></a>
-          </div>
-        </li>
-        <li class="news-item news-item-3">
-          <span class="news-date"><span>NOV</span>06</span>
-          <div class="news-body">
-            <a class="news-title" href="https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/" target="_blank" rel="noopener">Planning &amp; Zoning: November Public Hearing Notices</a>
-            <p>Notices for proposed subdivisions and zoning changes were published ahead of the Commission's November meeting.</p>
-            <a class="btn-readmore" href="https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/" target="_blank" rel="noopener">Read More<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
-          </div>
-        </li>
-      </ul>
+    <div class="hero-about">
+      <span class="hero-eyebrow">Est. 1833 · Northwestern Missouri</span>
+      <h2>About Clinton County</h2>
+      <p class="lede">Clinton County, Missouri, established in 1833, is located in the northwestern part of the state and is known for its rich agricultural heritage, welcoming communities, and strong sense of local pride. The county seat, Plattsburg, serves as the center of county government and commerce, while the county's towns and rural landscapes reflect a blend of historic charm and modern growth. Conveniently situated near the Kansas City metropolitan area, Clinton County offers residents and visitors the benefits of peaceful small-town living with easy access to major employment, shopping, and entertainment opportunities. From productive farmland and scenic countryside to parks, outdoor recreation, and community events, Clinton County continues to preserve its history while embracing opportunities for the future.</p>
     </div>
     <div class="hero-side">
       <div class="social-row" aria-label="Clinton County on social media">
@@ -1094,42 +1084,42 @@
   <section class="page-section" id="calendar" aria-labelledby="calendar-heading">
     <div class="section-head">
       <span class="kicker">Stay Up To Date</span>
-      <h2 id="calendar-heading">Calendar of Events</h2>
-      <p>County meetings, public notices, and community events, shown as a list for easy reading. This is the same live calendar published on clintoncomo.org.</p>
+      <h2 id="calendar-heading">News, Events, and Announcements</h2>
+      <p>Select a card to view Clinton County's latest news, the live event calendar, or current public notices.</p>
     </div>
 
-    <div class="calendar-card">
-      <div class="calendar-card-header">
-        <div class="calendar-card-header-text">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          <span>Upcoming Events</span>
-        </div>
-        <div class="calendar-view-switch" role="group" aria-label="Calendar view">
-          <button type="button" class="view-btn" data-mode="AGENDA" aria-pressed="true">List</button>
-          <button type="button" class="view-btn" data-mode="WEEK" aria-pressed="false">Week</button>
-          <button type="button" class="view-btn" data-mode="MONTH" aria-pressed="false">Month</button>
-        </div>
+    <div class="card-grid">
+      <div class="official-card">
+        <button class="card-toggle" aria-haspopup="dialog" data-modal-trigger data-modal-type="newsroom">
+          <span class="card-toggle-text">
+            <span class="role">Newsroom</span>
+            <h3>Clinton County News</h3>
+            <p class="person">Elections, public hearings, and county updates</p>
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
       </div>
-      <div class="calendar-frame">
-        <iframe
-          id="county-calendar-iframe"
-          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=America%2FChicago&amp;mode=AGENDA&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;src=vvl4s0chvssa8idh8301le34bc%40group.calendar.google.com&amp;color=%235229A3&amp;src=cndkvls57cpe70itqistaoq11k%40group.calendar.google.com&amp;color=%23B1365F"
-          title="Clinton County, Missouri — Calendar of Events"
-          width="100%"
-          height="560"
-          loading="lazy"
-          frameborder="0"
-          scrolling="no">
-        </iframe>
+      <div class="official-card">
+        <button class="card-toggle" aria-haspopup="dialog" data-modal-trigger data-modal-type="calendar-events">
+          <span class="card-toggle-text">
+            <span class="role">Live Calendar</span>
+            <h3>Calendar of Events</h3>
+            <p class="person">County meetings and community events</p>
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+      </div>
+      <div class="official-card">
+        <button class="card-toggle" aria-haspopup="dialog" data-modal-trigger data-modal-type="public-notices">
+          <span class="card-toggle-text">
+            <span class="role">Planning &amp; Zoning</span>
+            <h3>Public Notices</h3>
+            <p class="person">Hearings, agendas, and zoning notices</p>
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
       </div>
     </div>
-    <p style="margin-top:18px;">
-      <a class="btn btn-primary" href="https://clintoncomo.org/resources/calendar-of-events/" target="_blank" rel="noopener">Open Full Calendar on clintoncomo.org<span class="visually-hidden"> (opens in a new tab)</span></a>
-    </p>
   </section>
 
   <section class="page-section" id="officials" aria-labelledby="officials-heading">
@@ -1284,6 +1274,20 @@
   "use strict";
 
   // ---------- Data ----------
+  var PUBLIC_NOTICES = [
+    {date:"Aug 06", title:"Public Hearings — August 6, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARINGS-AUGUST-6-2026-Public-Notice.pdf"},
+    {date:"Jul 30", title:"Public Hearing — July 30 Notice", href:"https://clintoncomo.org/wp-content/uploads/2026/07/PUBLIC-HEARING-JULY-30-PUBLIC-NOTICE.pdf"},
+    {date:"Jul 02", title:"Agenda — July 2, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/AGENDA-JULY-2-2026.pdf"},
+    {date:"Jul 02", title:"Public Hearing — July 2 Notice (Revised)", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARING-JULY-2-PUBLIC-NOTICE-REVISED.pdf"}
+  ];
+  var PUBLIC_NOTICES_LINK = "https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/";
+
+  var NEWS_ITEMS = [
+    {rowClass:"news-item-1", date:"APR", day:"07", title:"2026 General Municipal Election: Official Results Posted", blurb:"Official and unofficial results from the April 7, 2026 General Municipal Election are now posted for review.", href:"https://clintoncomo.org/elections/"},
+    {rowClass:"news-item-2", date:"DEC", day:"04", title:"Planning &amp; Zoning: December Public Hearing Notices", blurb:"Subdivision and rezoning applications near Gower, Plattsburg, and Holt go before the Commission this month.", href:"https://clintoncomo.org/wp-content/uploads/2025/11/PUBLIC-HEARING-DECEMBER-4-2025-PUBLIC-NOTICES.pdf"},
+    {rowClass:"news-item-3", date:"NOV", day:"06", title:"Planning &amp; Zoning: November Public Hearing Notices", blurb:"Notices for proposed subdivisions and zoning changes were published ahead of the Commission's November meeting.", href:"https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/"}
+  ];
+
   var officials = [
     {
       id:"assessor", role:"Assessor", name:"Cindy Carter", group:"officials",
@@ -1429,13 +1433,8 @@
         {date:"Jul 02", title:"Commissioner Minutes — July 2, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5919&wpdocs_nonce=9c8299d8b2"}
       ],
       minutesLink:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/?dir=4479",
-      notices:[
-        {date:"Aug 06", title:"Public Hearings — August 6, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARINGS-AUGUST-6-2026-Public-Notice.pdf"},
-        {date:"Jul 30", title:"Public Hearing — July 30 Notice", href:"https://clintoncomo.org/wp-content/uploads/2026/07/PUBLIC-HEARING-JULY-30-PUBLIC-NOTICE.pdf"},
-        {date:"Jul 02", title:"Agenda — July 2, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/AGENDA-JULY-2-2026.pdf"},
-        {date:"Jul 02", title:"Public Hearing — July 2 Notice (Revised)", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARING-JULY-2-PUBLIC-NOTICE-REVISED.pdf"}
-      ],
-      noticesLink:"https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/",
+      notices: PUBLIC_NOTICES,
+      noticesLink: PUBLIC_NOTICES_LINK,
       linkGroups:[
         {heading:"Resources", links:[
           {label:"Budget", href:"https://clintoncomo.org/government/courthouse/commissioners/"},
@@ -1675,7 +1674,10 @@
     mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
     pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>',
     clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
-    fax:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 3v5H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/><path d="M9 15h6v6H9zM9 8h6"/></svg>'
+    fax:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 3v5H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/><path d="M9 15h6v6H9zM9 8h6"/></svg>',
+    rss:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M4 11.5A8.5 8.5 0 0 1 12.5 20"/><path d="M4 5A15 15 0 0 1 19 20"/></svg>',
+    calendarIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5H21"/><path d="M7.5 3V6.5M16.5 3V6.5"/></svg>',
+    document:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>'
   };
   var SIDEBAR_ICON_MAP = {"Phone":ICONS.phone, "Fax":ICONS.fax, "Email":ICONS.mail, "Mailing Address":ICONS.pin, "Hours":ICONS.clock};
   var SIDEBAR_LABELS = {"Phone":1, "Fax":1, "Email":1, "Mailing Address":1, "Hours":1, "Term":1};
@@ -1876,6 +1878,67 @@
     openModal(profileHtml, bodyHtml);
   }
 
+  function openNewsroomModal(){
+    var profileHtml = buildProfileHtml({
+      heading: "Clinton County News",
+      subtitle: "Newsroom",
+      icon: ICONS.rss
+    });
+    var bodyHtml = '<h3>Clinton County News</h3>';
+    bodyHtml += '<ul class="news-list">';
+    NEWS_ITEMS.forEach(function(n){
+      bodyHtml += '<li class="news-item ' + n.rowClass + '">';
+      bodyHtml += '<span class="news-date"><span>' + n.date + '</span>' + n.day + '</span>';
+      bodyHtml += '<div class="news-body">';
+      bodyHtml += '<a class="news-title" href="' + n.href + '" target="_blank" rel="noopener">' + n.title + '</a>';
+      bodyHtml += '<p>' + n.blurb + '</p>';
+      bodyHtml += '<a class="btn-readmore" href="' + n.href + '" target="_blank" rel="noopener">Read More<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>';
+      bodyHtml += '</div></li>';
+    });
+    bodyHtml += '</ul>';
+    openModal(profileHtml, bodyHtml);
+  }
+
+  function openCalendarEventsModal(){
+    var profileHtml = buildProfileHtml({
+      heading: "Calendar of Events",
+      subtitle: "Live County Calendar",
+      icon: ICONS.calendarIcon
+    });
+    var bodyHtml = '<h3>Calendar of Events</h3>';
+    bodyHtml += '<div class="calendar-card">';
+    bodyHtml += '<div class="calendar-card-header"><div class="calendar-card-header-text">' + ICONS.calendarIcon.replace('<svg ', '<svg width="20" height="20" ') + '<span>Upcoming Events</span></div>';
+    bodyHtml += '<div class="calendar-view-switch" role="group" aria-label="Calendar view">';
+    bodyHtml += '<button type="button" class="view-btn" data-mode="AGENDA" aria-pressed="true">List</button>';
+    bodyHtml += '<button type="button" class="view-btn" data-mode="WEEK" aria-pressed="false">Week</button>';
+    bodyHtml += '<button type="button" class="view-btn" data-mode="MONTH" aria-pressed="false">Month</button>';
+    bodyHtml += '</div></div>';
+    bodyHtml += '<div class="calendar-frame"><iframe id="county-calendar-iframe" src="https://calendar.google.com/calendar/embed?height=560&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=America%2FChicago&amp;mode=AGENDA&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;src=vvl4s0chvssa8idh8301le34bc%40group.calendar.google.com&amp;color=%235229A3&amp;src=cndkvls57cpe70itqistaoq11k%40group.calendar.google.com&amp;color=%23B1365F" title="Clinton County, Missouri — Calendar of Events" width="100%" height="500" loading="lazy" frameborder="0" scrolling="no"></iframe></div>';
+    bodyHtml += '</div>';
+    bodyHtml += '<p style="margin-top:16px;"><a class="btn btn-primary" href="https://clintoncomo.org/resources/calendar-of-events/" target="_blank" rel="noopener">Open Full Calendar on clintoncomo.org<span class="visually-hidden"> (opens in a new tab)</span></a></p>';
+    openModal(profileHtml, bodyHtml);
+  }
+
+  function openPublicNoticesModal(){
+    var profileHtml = buildProfileHtml({
+      heading: "Public Notices",
+      subtitle: "Planning &amp; Zoning",
+      icon: ICONS.document
+    });
+    var bodyHtml = '<h3>Public Notices</h3>';
+    bodyHtml += '<p>The latest public hearing notices and agendas from Clinton County Planning &amp; Zoning.</p>';
+    bodyHtml += '<div class="notice-list">';
+    PUBLIC_NOTICES.forEach(function(n){
+      bodyHtml += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
+      bodyHtml += '<span class="notice-date">' + n.date + '</span>';
+      bodyHtml += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
+      bodyHtml += '</a>';
+    });
+    bodyHtml += '</div>';
+    bodyHtml += '<a class="notice-viewall" href="' + PUBLIC_NOTICES_LINK + '" target="_blank" rel="noopener">View all public notices<span class="visually-hidden"> (opens in a new tab)</span></a>';
+    openModal(profileHtml, bodyHtml);
+  }
+
   // ---------- Card builders (trigger buttons only — content is built on demand for the modal) ----------
   function buildCard(o){
     var card = document.createElement("div");
@@ -1961,6 +2024,12 @@
       if(community){ openCommunityModal(community); }
     } else if(type === "circuit-court"){
       openCircuitCourtModal();
+    } else if(type === "newsroom"){
+      openNewsroomModal();
+    } else if(type === "calendar-events"){
+      openCalendarEventsModal();
+    } else if(type === "public-notices"){
+      openPublicNoticesModal();
     }
   });
 
@@ -2025,19 +2094,19 @@
       searchStatus.textContent = visible + (visible === 1 ? " official matches " : " officials match ") + '"' + searchInput.value.trim() + '".';
     }
   });
-  // ---------- Calendar view switch ----------
-  var calendarIframe = document.getElementById("county-calendar-iframe");
-  var viewButtons = document.querySelectorAll(".view-btn");
-  if(calendarIframe && viewButtons.length){
-    viewButtons.forEach(function(btn){
-      btn.addEventListener("click", function(){
-        var mode = btn.getAttribute("data-mode");
-        var src = calendarIframe.src.replace(/([&?])mode=[^&]*/, "$1mode=" + mode);
-        calendarIframe.src = src;
-        viewButtons.forEach(function(b){ b.setAttribute("aria-pressed", String(b === btn)); });
-      });
-    });
-  }
+  // ---------- Calendar view switch (delegated — buttons/iframe are injected into the modal on demand) ----------
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest(".view-btn");
+    if(!btn) return;
+    var calendarIframe = document.getElementById("county-calendar-iframe");
+    if(!calendarIframe) return;
+    var mode = btn.getAttribute("data-mode");
+    calendarIframe.src = calendarIframe.src.replace(/([&?])mode=[^&]*/, "$1mode=" + mode);
+    var group = btn.closest(".calendar-view-switch");
+    if(group){
+      group.querySelectorAll(".view-btn").forEach(function(b){ b.setAttribute("aria-pressed", String(b === btn)); });
+    }
+  });
 })();
 </script>
 
