@@ -147,6 +147,7 @@
   nav.primary-nav{
     background:var(--navy-mid);
     border-bottom:5px solid var(--brass);
+    position:relative;
   }
   .nav-inner{
     max-width:var(--max);
@@ -164,15 +165,20 @@
     font-family:var(--sans);
     font-weight:600;
     font-size:0.95rem;
-    padding:12px 6px;
+    padding:12px 10px;
     align-items:center;
     gap:10px;
     cursor:pointer;
+    min-height:44px;
+    border-radius:4px;
   }
-  .nav-toggle .bars{width:22px;height:2px;background:var(--white);position:relative;display:inline-block;}
-  .nav-toggle .bars::before,.nav-toggle .bars::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--white);}
+  .nav-toggle .bars{width:22px;height:2px;background:var(--white);position:relative;display:inline-block;transition:background 0.15s ease;}
+  .nav-toggle .bars::before,.nav-toggle .bars::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--white);transition:transform 0.2s ease,top 0.2s ease,opacity 0.15s ease;}
   .nav-toggle .bars::before{top:-7px;}
   .nav-toggle .bars::after{top:7px;}
+  .nav-toggle[aria-expanded="true"] .bars{background:transparent;}
+  .nav-toggle[aria-expanded="true"] .bars::before{top:0; transform:rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] .bars::after{top:0; transform:rotate(-45deg);}
 
   .nav-list{
     list-style:none;
@@ -197,14 +203,33 @@
   }
 
   @media (max-width:820px){
+    .nav-inner{justify-content:flex-end; padding:8px 16px;}
     .nav-toggle{display:inline-flex;}
     .nav-list{
       flex-direction:column;
       width:100%;
       display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background:var(--navy-mid);
+      border-top:1px solid rgba(255,255,255,0.15);
+      border-bottom:4px solid var(--brass);
+      box-shadow:0 16px 30px rgba(8,14,28,0.4);
+      max-height:calc(100vh - 60px);
+      overflow-y:auto;
+      z-index:60;
     }
     .nav-list.open{display:flex;}
-    .nav-list a{padding:14px 6px; border-bottom:1px solid rgba(255,255,255,0.12);}
+    .nav-list li{width:100%;}
+    .nav-list a{
+      padding:16px 20px;
+      border-bottom:1px solid rgba(255,255,255,0.12);
+      min-height:44px;
+      display:flex;
+      align-items:center;
+    }
   }
 
   /* ============ Hero ============ */
@@ -474,6 +499,9 @@
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
     gap:20px;
+  }
+  @media (max-width:400px){
+    .card-grid{grid-template-columns:1fr;}
   }
   .official-card{
     background:var(--white);
@@ -1396,6 +1424,11 @@
         '<li><strong>Property &amp; Zoning:</strong> We manage county-owned buildings and oversee county land use and Planning and Zoning rules.</li>' +
         '<li><strong>Public Safety &amp; Facilities:</strong> They collaborate with local law enforcement and the justice staff to manage county detention facilities and execute major building projects.</li>' +
         '</ul>',
+      minutes:[
+        {date:"Jul 07", title:"Commissioner Minutes — July 7, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5918&wpdocs_nonce=3c0cfa2656"},
+        {date:"Jul 02", title:"Commissioner Minutes — July 2, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5919&wpdocs_nonce=9c8299d8b2"}
+      ],
+      minutesLink:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/?dir=4479",
       notices:[
         {date:"Aug 06", title:"Public Hearings — August 6, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARINGS-AUGUST-6-2026-Public-Notice.pdf"},
         {date:"Jul 30", title:"Public Hearing — July 30 Notice", href:"https://clintoncomo.org/wp-content/uploads/2026/07/PUBLIC-HEARING-JULY-30-PUBLIC-NOTICE.pdf"},
@@ -1745,18 +1778,18 @@
     return html;
   }
 
-  function buildNoticesHtml(notices, viewAllHref){
-    var html = '<h4 class="modal-subheading">Public Notices</h4>';
+  function buildNoticesHtml(heading, notices, viewAllHref, viewAllLabel){
+    var html = '<h4 class="modal-subheading">' + heading + '</h4>';
     html += '<div class="notice-list">';
     notices.forEach(function(n){
       html += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
       html += '<span class="notice-date">' + n.date + '</span>';
-      html += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens .pdf in a new tab)</span></span>';
+      html += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
       html += '</a>';
     });
     html += '</div>';
     if(viewAllHref){
-      html += '<a class="notice-viewall" href="' + viewAllHref + '" target="_blank" rel="noopener">View all public notices<span class="visually-hidden"> (opens in a new tab)</span></a>';
+      html += '<a class="notice-viewall" href="' + viewAllHref + '" target="_blank" rel="noopener">' + (viewAllLabel || "View all") + '<span class="visually-hidden"> (opens in a new tab)</span></a>';
     }
     return html;
   }
@@ -1777,7 +1810,8 @@
       var bodyHtml = '<h3>' + entry.name + '</h3>' + peopleListHtml(entry.people);
       if(entry.aboutHtml){ bodyHtml += entry.aboutHtml; }
       bodyHtml += buildDetailList(nonSidebarDetails(entry.details).filter(function(i){ return i[0] !== "Term"; }));
-      if(entry.notices){ bodyHtml += buildNoticesHtml(entry.notices, entry.noticesLink); }
+      if(entry.minutes){ bodyHtml += buildNoticesHtml("Commissioner Minutes", entry.minutes, entry.minutesLink, "View all commissioner minutes"); }
+      if(entry.notices){ bodyHtml += buildNoticesHtml("Public Notices", entry.notices, entry.noticesLink, "View all public notices"); }
       if(entry.linkGroups){ bodyHtml += buildLinkGroupsHtml(entry.linkGroups); }
       openModal(profileHtml, bodyHtml);
       return;
@@ -1933,15 +1967,42 @@
   // ---------- Mobile nav toggle ----------
   var navToggle = document.getElementById("nav-toggle");
   var navList = document.getElementById("primary-nav-list");
-  navToggle.addEventListener("click", function(){
+
+  function closeMobileNav(){
+    navToggle.setAttribute("aria-expanded","false");
+    navList.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  function openMobileNav(){
+    navToggle.setAttribute("aria-expanded","true");
+    navList.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  navToggle.addEventListener("click", function(e){
+    e.stopPropagation();
     var expanded = navToggle.getAttribute("aria-expanded") === "true";
-    navToggle.setAttribute("aria-expanded", String(!expanded));
-    navList.classList.toggle("open", !expanded);
+    if(expanded){ closeMobileNav(); } else { openMobileNav(); }
   });
   navList.addEventListener("click", function(e){
     if(e.target.tagName === "A" && window.matchMedia("(max-width:820px)").matches){
-      navToggle.setAttribute("aria-expanded","false");
-      navList.classList.remove("open");
+      closeMobileNav();
+    }
+  });
+  document.addEventListener("click", function(e){
+    if(navList.classList.contains("open") && !navList.contains(e.target) && e.target !== navToggle && !navToggle.contains(e.target)){
+      closeMobileNav();
+    }
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && navList.classList.contains("open")){
+      closeMobileNav();
+      navToggle.focus();
+    }
+  });
+  window.addEventListener("resize", function(){
+    if(!window.matchMedia("(max-width:820px)").matches && navList.classList.contains("open")){
+      closeMobileNav();
     }
   });
 
