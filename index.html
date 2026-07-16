@@ -1141,6 +1141,7 @@
         <a class="btn btn-quick" href="#official-recorder-of-deeds">Record a Deed</a>
         <a class="btn btn-quick" href="#official-road-and-bridge">Report a Road Issue</a>
         <a class="btn btn-quick" href="#calendar" aria-haspopup="dialog" data-modal-trigger data-modal-type="calendar-events">Calendar of Events</a>
+        <a class="btn btn-quick" href="#calendar" aria-haspopup="dialog" data-modal-trigger data-modal-type="public-notices">Public Notices</a>
       </div>
       </div>
     </div>
@@ -1347,18 +1348,24 @@
   "use strict";
 
   // ---------- Data ----------
+  // To add a new item: just add a new {date, title, href, sortDate} entry anywhere in the
+  // list below. sortDate must be "YYYY-MM-DD" — the card automatically shows only the
+  // newest items (sorted by sortDate) and drops the rest, so nothing needs to be removed
+  // or reordered by hand.
   var PUBLIC_NOTICES = [
-    {date:"Aug 06", title:"Public Hearings — August 6, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARINGS-AUGUST-6-2026-Public-Notice.pdf"},
-    {date:"Jul 30", title:"Public Hearing — July 30 Notice", href:"https://clintoncomo.org/wp-content/uploads/2026/07/PUBLIC-HEARING-JULY-30-PUBLIC-NOTICE.pdf"},
-    {date:"Jul 02", title:"Agenda — July 2, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/AGENDA-JULY-2-2026.pdf"},
-    {date:"Jul 02", title:"Public Hearing — July 2 Notice (Revised)", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARING-JULY-2-PUBLIC-NOTICE-REVISED.pdf"}
+    {date:"Aug 06", title:"Public Hearings — August 6, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARINGS-AUGUST-6-2026-Public-Notice.pdf", sortDate:"2026-08-06"},
+    {date:"Jul 30", title:"Public Hearing — July 30 Notice", href:"https://clintoncomo.org/wp-content/uploads/2026/07/PUBLIC-HEARING-JULY-30-PUBLIC-NOTICE.pdf", sortDate:"2026-07-30"},
+    {date:"Jul 02", title:"Agenda — July 2, 2026", href:"https://clintoncomo.org/wp-content/uploads/2026/06/AGENDA-JULY-2-2026.pdf", sortDate:"2026-07-02"},
+    {date:"Jul 02", title:"Public Hearing — July 2 Notice (Revised)", href:"https://clintoncomo.org/wp-content/uploads/2026/06/PUBLIC-HEARING-JULY-2-PUBLIC-NOTICE-REVISED.pdf", sortDate:"2026-07-02"}
   ];
   var PUBLIC_NOTICES_LINK = "https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/";
 
+  // Same rule as above: add new entries anywhere, include a "YYYY-MM-DD" sortDate,
+  // and the card will automatically show only the newest ones.
   var NEWS_ITEMS = [
-    {rowClass:"news-item-1", date:"APR", day:"07", title:"2026 General Municipal Election: Official Results Posted", blurb:"Official and unofficial results from the April 7, 2026 General Municipal Election are now posted for review.", href:"https://clintoncomo.org/elections/"},
-    {rowClass:"news-item-2", date:"DEC", day:"04", title:"Planning &amp; Zoning: December Public Hearing Notices", blurb:"Subdivision and rezoning applications near Gower, Plattsburg, and Holt go before the Commission this month.", href:"https://clintoncomo.org/wp-content/uploads/2025/11/PUBLIC-HEARING-DECEMBER-4-2025-PUBLIC-NOTICES.pdf"},
-    {rowClass:"news-item-3", date:"NOV", day:"06", title:"Planning &amp; Zoning: November Public Hearing Notices", blurb:"Notices for proposed subdivisions and zoning changes were published ahead of the Commission's November meeting.", href:"https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/"}
+    {date:"APR", day:"07", title:"2026 General Municipal Election: Official Results Posted", blurb:"Official and unofficial results from the April 7, 2026 General Municipal Election are now posted for review.", href:"https://clintoncomo.org/elections/", sortDate:"2026-04-07"},
+    {date:"DEC", day:"04", title:"Planning &amp; Zoning: December Public Hearing Notices", blurb:"Subdivision and rezoning applications near Gower, Plattsburg, and Holt go before the Commission this month.", href:"https://clintoncomo.org/wp-content/uploads/2025/11/PUBLIC-HEARING-DECEMBER-4-2025-PUBLIC-NOTICES.pdf", sortDate:"2025-12-04"},
+    {date:"NOV", day:"06", title:"Planning &amp; Zoning: November Public Hearing Notices", blurb:"Notices for proposed subdivisions and zoning changes were published ahead of the Commission's November meeting.", href:"https://clintoncomo.org/government/courthouse/planning-and-zoning/public-notices/", sortDate:"2025-11-06"}
   ];
 
   var officials = [
@@ -1502,8 +1509,8 @@
         '<li><strong>Public Safety &amp; Facilities:</strong> They collaborate with local law enforcement and the justice staff to manage county detention facilities and execute major building projects.</li>' +
         '</ul>',
       minutes:[
-        {date:"Jul 07", title:"Commissioner Minutes — July 7, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5918&wpdocs_nonce=3c0cfa2656"},
-        {date:"Jul 02", title:"Commissioner Minutes — July 2, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5919&wpdocs_nonce=9c8299d8b2"}
+        {date:"Jul 07", title:"Commissioner Minutes — July 7, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5918&wpdocs_nonce=3c0cfa2656", sortDate:"2026-07-07"},
+        {date:"Jul 02", title:"Commissioner Minutes — July 2, 2026", href:"https://clintoncomo.org/?wpdocs_dl=5919&wpdocs_nonce=9c8299d8b2", sortDate:"2026-07-02"}
       ],
       minutesLink:"https://clintoncomo.org/government/courthouse/county-clerk/public-documents/?dir=4479",
       notices: PUBLIC_NOTICES,
@@ -2048,10 +2055,24 @@
     return html;
   }
 
-  function buildNoticesHtml(heading, notices, viewAllHref, viewAllLabel){
+  // Sorts items newest-first by sortDate ("YYYY-MM-DD") and keeps only the top N.
+  // This is what lets a list like PUBLIC_NOTICES grow indefinitely as new items are
+  // added over time, while the card only ever displays the most recent ones.
+  function topNByDate(items, n){
+    var copy = (items || []).slice();
+    copy.sort(function(a, b){
+      var da = a.sortDate || "", db = b.sortDate || "";
+      if(da === db) return 0;
+      return da < db ? 1 : -1;
+    });
+    return copy.slice(0, n);
+  }
+
+  function buildNoticesHtml(heading, notices, viewAllHref, viewAllLabel, limit){
+    var items = topNByDate(notices, limit || 4);
     var html = '<h4 class="modal-subheading">' + heading + '</h4>';
     html += '<div class="notice-list">';
-    notices.forEach(function(n){
+    items.forEach(function(n){
       html += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
       html += '<span class="notice-date">' + n.date + '</span>';
       html += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
@@ -2169,7 +2190,7 @@
     var bodyHtml = '<h3>Clinton County News</h3>';
     bodyHtml += '<p>Recent elections results, county announcements, and Planning &amp; Zoning updates.</p>';
     bodyHtml += '<div class="notice-list">';
-    NEWS_ITEMS.forEach(function(n){
+    topNByDate(NEWS_ITEMS, 3).forEach(function(n){
       bodyHtml += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
       bodyHtml += '<span class="notice-date">' + n.date + ' ' + n.day + '</span>';
       bodyHtml += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
@@ -2206,7 +2227,7 @@
     var bodyHtml = '<h3>Public Notices</h3>';
     bodyHtml += '<p>The latest public hearing notices and agendas from Clinton County Planning &amp; Zoning.</p>';
     bodyHtml += '<div class="notice-list">';
-    PUBLIC_NOTICES.forEach(function(n){
+    topNByDate(PUBLIC_NOTICES, 4).forEach(function(n){
       bodyHtml += '<a class="notice-item" href="' + n.href + '" target="_blank" rel="noopener">';
       bodyHtml += '<span class="notice-date">' + n.date + '</span>';
       bodyHtml += '<span class="notice-title">' + n.title + '<span class="visually-hidden"> (opens in a new tab)</span></span>';
