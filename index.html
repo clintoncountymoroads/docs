@@ -532,6 +532,16 @@
     border-radius:var(--radius);
     overflow:hidden;
   }
+  .official-card.card-flash{
+    animation:cardFlash 2.2s ease-out;
+  }
+  @keyframes cardFlash{
+    0%{background:#fbe9c8; border-color:var(--brass-deep); box-shadow:0 0 0 3px var(--brass-deep);}
+    100%{background:var(--white); border-color:var(--cream-deep); box-shadow:0 0 0 0 rgba(0,0,0,0);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .official-card.card-flash{animation:none; background:#fbe9c8;}
+  }
   .official-card.no-data{border-left-color:var(--slate);}
   .card-toggle{
     width:100%;
@@ -857,6 +867,9 @@
   .social-link-icon svg{width:22px; height:22px;}
 
   .notice-flag{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
     background:#fdf1e7;
     border:1px solid #eecda3;
     border-left:4px solid var(--rust);
@@ -866,6 +879,20 @@
     font-size:0.86rem;
     color:var(--rust);
     max-width:60ch;
+  }
+  .notice-flag::before{
+    content:"";
+    flex:none;
+    width:20px;
+    height:20px;
+    margin-top:1px;
+    background-color:var(--rust);
+    -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3.5 L22 20.5 L2 20.5 Z" fill="none" stroke="black" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="black" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.15" fill="black"/></svg>');
+    mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3.5 L22 20.5 L2 20.5 Z" fill="none" stroke="black" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="black" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.15" fill="black"/></svg>');
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    -webkit-mask-size:contain;
+    mask-size:contain;
   }
   .link-groups{
     margin-top:26px;
@@ -1033,6 +1060,9 @@
     flex-wrap:wrap;
     gap:10px;
   }
+  .footer-legal-links{display:inline-flex; align-items:center; gap:8px;}
+  .footer-legal-links a{color:#96a2ba; text-decoration:none;}
+  .footer-legal-links a:hover{color:var(--brass-light); text-decoration:underline;}
 
   /* Live region visually minimal but present */
   [aria-live]{scroll-margin-top:20px;}
@@ -1110,7 +1140,7 @@
         <a class="btn btn-quick" href="#official-planning-and-zoning">Zoning &amp; Permits</a>
         <a class="btn btn-quick" href="#official-recorder-of-deeds">Record a Deed</a>
         <a class="btn btn-quick" href="#official-road-and-bridge">Report a Road Issue</a>
-        <a class="btn btn-quick" href="#calendar">Calendar of Events</a>
+        <a class="btn btn-quick" href="#calendar" aria-haspopup="dialog" data-modal-trigger data-modal-type="calendar-events">Calendar of Events</a>
       </div>
       </div>
     </div>
@@ -1303,6 +1333,11 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Clinton County, Missouri.</span>
+    <span class="footer-legal-links">
+      <a href="http://clintoncomo.org/?p=277" target="_blank" rel="noopener">Legal Statement<span class="visually-hidden"> (opens in a new tab)</span></a>
+      <span aria-hidden="true">·</span>
+      <a href="http://clintoncomo.org/?p=275" target="_blank" rel="noopener">Privacy Statement<span class="visually-hidden"> (opens in a new tab)</span></a>
+    </span>
     <span>This unofficial directory references clintoncomo.org.</span>
   </div>
 </footer>
@@ -1671,6 +1706,28 @@
         '<li>Notify the inspector 24 hours in advance of the needed final inspection. All subsurface components must remain uncovered until inspection; covering components will result in a failed inspection and require components to be uncovered again for inspection.</li>' +
         '<li>Final inspection / project completion.</li>' +
         '</ol>',
+      notices: PUBLIC_NOTICES,
+      noticesLink: PUBLIC_NOTICES_LINK,
+      forms:[
+        {date:"PDF", title:"Clinton County Zoning Order (Amended 06-11-2026)", href:"https://clintoncomo.org/wp-content/uploads/2026/06/Clinton-Co-Zoning-Order-Amended-06-11-2026.pdf"},
+        {date:"PDF", title:"On-Site Wastewater Application", href:"https://clintoncomo.org/wp-content/uploads/2023/08/On-Site-Application.pdf"},
+        {date:"PDF", title:"Onsite Wastewater Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/ONSITE-WASTEWATER-APPLICATION.pdf"},
+        {date:"PDF", title:"Applicant Contact Information", href:"https://clintoncomo.org/wp-content/uploads/2026/03/APPLICANT-CONTACT-INFORMATION.pdf"},
+        {date:"PDF", title:"Home Build Accessory Building Permit Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Home-Build-Accessory-Building-Permit-Application.pdf"},
+        {date:"PDF", title:"Accessory Building Permit Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Accessory-Building-Permit-Application.pdf"},
+        {date:"PDF", title:"Commercial Building Permit Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/COMMERCIAL-BUILDING-PERMIT-APPLICATION.pdf"},
+        {date:"PDF", title:"Major Subdivision Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/MAJOR-SUBDIVISION-APPLICATION.pdf"},
+        {date:"PDF", title:"Minor Subdivision & Rezone Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Minor-Subdivision-Rezone-Application.pdf"},
+        {date:"PDF", title:"Replat and Rezone", href:"https://clintoncomo.org/wp-content/uploads/2026/03/REPLAT-AND-REZONE.pdf"},
+        {date:"PDF", title:"Solar ASES Building Permit", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Solar-ASES-BUILDING-PERMIT.pdf"},
+        {date:"PDF", title:"Solar LASES Application (Special Use)", href:"https://clintoncomo.org/wp-content/uploads/2026/03/SOLAR-LASES-APPLICATION-SPEC-USE.pdf"},
+        {date:"PDF", title:"Clinton County Setbacks", href:"https://clintoncomo.org/wp-content/uploads/2023/02/CLINTON-COUNTY-SETBACKS.pdf"},
+        {date:"PDF", title:"Complaint Form", href:"https://clintoncomo.org/wp-content/uploads/2026/03/COMPLAINT-FORM.pdf"},
+        {date:"PDF", title:"Driveway Permit", href:"https://clintoncomo.org/wp-content/uploads/2026/03/DRIVEWAY-PERMIT-.pdf"},
+        {date:"PDF", title:"Special Use Permit Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Special-Use-Permit-Application.pdf"},
+        {date:"PDF", title:"Variance Application", href:"https://clintoncomo.org/wp-content/uploads/2026/03/Variance-Application.pdf"}
+      ],
+      formsLink: "https://clintoncomo.org/government/courthouse/planning-and-zoning/ordinances-forms/",
       linkGroups:[
         {heading:"Ordinances & Forms", links:[
           {label:"Ordinances & Forms", href:"https://clintoncomo.org/government/courthouse/planning-and-zoning/ordinances-forms/"},
@@ -1975,7 +2032,7 @@
 
   document.getElementById("modal-close").addEventListener("click", function(){ modalEl.close(); });
   modalEl.addEventListener("click", function(e){ if(e.target === modalEl){ modalEl.close(); } });
-  modalEl.addEventListener("close", function(){ if(lastTrigger){ lastTrigger.focus(); } });
+  modalEl.addEventListener("close", function(){ if(lastTrigger){ lastTrigger.focus({preventScroll:true}); } });
 
   // ---------- Per-type modal content builders ----------
   function buildLinkGroupsHtml(groups){
@@ -2044,6 +2101,9 @@
     if(entry.aboutHtml){ bodyHtml += entry.aboutHtml; }
     bodyHtml += buildDetailList(nonSidebarDetails(entry.details).filter(function(i){ return i[0] !== "Term"; }));
     if(entry.note){ bodyHtml += '<p class="no-data-note">' + entry.note + '</p>'; }
+    if(entry.minutes){ bodyHtml += buildNoticesHtml("Commissioner Minutes", entry.minutes, entry.minutesLink, "View all commissioner minutes"); }
+    if(entry.notices){ bodyHtml += buildNoticesHtml("Public Notices", entry.notices, entry.noticesLink, "View all public notices"); }
+    if(entry.forms){ bodyHtml += buildNoticesHtml("Forms", entry.forms, entry.formsLink, "View all ordinances & forms"); }
     if(entry.linkGroups){ bodyHtml += buildLinkGroupsHtml(entry.linkGroups); }
     openModal(profileHtml, bodyHtml);
   }
@@ -2078,6 +2138,17 @@
     bodyHtml += '<li><strong>Daren Adkins</strong><span>Circuit Judge, Div. 2 — 43rd Judicial Circuit · 6-year term</span></li>';
     bodyHtml += '<li><strong>Teresa L. Bingham</strong><span>Associate Circuit Judge · 4-year term</span></li>';
     bodyHtml += '</ul>';
+    bodyHtml += '<h4 class="modal-subheading">Important Information</h4>';
+    bodyHtml += '<p class="notice-flag">No shorts allowed when appearing in Court. Leave cell phones in your vehicle. There are metal detectors when you enter the Clinton County Courthouse.</p>';
+    bodyHtml += '<h4 class="modal-subheading">Contact the Clerk\u2019s Office</h4>';
+    bodyHtml += '<p>Please contact the clerk\u2019s office for information about the following:</p>';
+    bodyHtml += buildDetailList([
+      ["Adult Abuse Orders","816-539-3731","tel:8165393731"],
+      ["Small Claims","816-539-3731","tel:8165393731"],
+      ["Law Days","816-539-3731","tel:8165393731"],
+      ["Traffic Matters","816-539-3755","tel:8165393755"]
+    ]);
+    bodyHtml += '<h4 class="modal-subheading">Court Contact Information</h4>';
     bodyHtml += buildDetailList([
       ["Probate","816-539-3298","tel:8165393298"],
       ["Civil / Circuit Clerk","816-539-3731","tel:8165393731"],
@@ -2220,6 +2291,7 @@
   document.addEventListener("click", function(e){
     var trigger = e.target.closest("[data-modal-trigger]");
     if(!trigger) return;
+    if(trigger.tagName === "A"){ e.preventDefault(); }
     lastTrigger = trigger;
     var type = trigger.getAttribute("data-modal-type");
     var id = trigger.getAttribute("data-modal-id");
@@ -2279,6 +2351,51 @@
   window.addEventListener("resize", function(){
     if(!window.matchMedia("(max-width:820px)").matches && navList.classList.contains("open")){
       closeMobileNav();
+    }
+  });
+
+  // ---------- Open the matching card's popup when a quick link is used ----------
+  function highlightCard(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove("card-flash");
+    void el.offsetWidth; // restart animation if clicked again
+    el.classList.add("card-flash");
+    el.addEventListener("animationend", function handler(){
+      el.classList.remove("card-flash");
+      el.removeEventListener("animationend", handler);
+    });
+  }
+  function openCardById(id){
+    var trigger = document.getElementById("official-" + id);
+    if(entryById[id]){
+      lastTrigger = (trigger && trigger.querySelector(".card-toggle")) || trigger;
+      openEntryModal(entryById[id]);
+      return true;
+    }
+    if(communityById[id]){
+      lastTrigger = (trigger && trigger.querySelector(".card-toggle")) || trigger;
+      openCommunityModal(communityById[id]);
+      return true;
+    }
+    return false;
+  }
+  document.addEventListener("click", function(e){
+    var link = e.target.closest('a[href^="#official-"]');
+    if(!link) return;
+    var id = link.getAttribute("href").slice(1).replace(/^official-/, "");
+    if(openCardById(id)){
+      e.preventDefault();
+    } else {
+      highlightCard("official-" + id);
+    }
+  });
+  window.addEventListener("load", function(){
+    if(location.hash && location.hash.indexOf("#official-") === 0){
+      var id = location.hash.slice(1).replace(/^official-/, "");
+      setTimeout(function(){
+        if(!openCardById(id)){ highlightCard("official-" + id); }
+      }, 400);
     }
   });
 
